@@ -1426,7 +1426,7 @@ out:
   RSA_free(tmp);
 #if defined(AWSLC_FIPS)
   if (ret == 0) {
-    BORINGSSL_FIPS_abort();
+    get_FIPS_test_failure_cb()(0, 0);
   }
 #endif
   return ret;

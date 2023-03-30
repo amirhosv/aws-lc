@@ -801,7 +801,7 @@ err:
 
 static void run_self_test_rsa(void) {
   if (!boringssl_self_test_rsa()) {
-    BORINGSSL_FIPS_abort();
+    get_FIPS_test_failure_cb()(0, 0);
   }
 }
 
@@ -813,7 +813,7 @@ void boringssl_ensure_rsa_self_test(void) {
 
 static void run_self_test_ecc(void) {
   if (!boringssl_self_test_ecc()) {
-    BORINGSSL_FIPS_abort();
+    get_FIPS_test_failure_cb()(0, 0);
   }
 }
 
@@ -825,7 +825,7 @@ void boringssl_ensure_ecc_self_test(void) {
 
 static void run_self_test_ffdh(void) {
   if (!boringssl_self_test_ffdh()) {
-    BORINGSSL_FIPS_abort();
+    get_FIPS_test_failure_cb()(0, 0);
   }
 }
 

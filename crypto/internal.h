@@ -946,15 +946,6 @@ static inline uint64_t CRYPTO_rotr_u64(uint64_t value, int shift) {
 
 #if defined(BORINGSSL_FIPS)
 
-// BORINGSSL_FIPS_abort is called when a FIPS power-on or continuous test
-// fails. It prevents any further cryptographic operations by the current
-// process.
-#if defined(_MSC_VER)
-__declspec(noreturn) void BORINGSSL_FIPS_abort(void);
-#else
-void BORINGSSL_FIPS_abort(void) __attribute__((noreturn));
-#endif
-
 // boringssl_self_test_startup runs all startup self tests and returns one on
 // success or zero on error. Startup self tests do not include lazy tests.
 // Call |BORINGSSL_self_test| to run every self test.

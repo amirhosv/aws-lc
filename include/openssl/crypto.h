@@ -86,6 +86,20 @@ OPENSSL_EXPORT int CRYPTO_needs_hwcap2_workaround(void);
 
 // FIPS monitoring
 
+
+// Callback method that is invoked in case a FIPS related test fails.
+// The method takes two arguments as input: a void pointer to its input, and an
+// int indicating the type of the input. The input can be later processed by the
+// callback.
+typedef void (*FIPS_test_failure_cb_t)(void*, int);
+
+// Registers a callback method that is invoked in case a FIPS related test fails
+OPENSSL_EXPORT void set_FIPS_test_failure_cb(FIPS_test_failure_cb_t);
+
+// Return the registered method. The default method invokes abort() followed by exit(1).
+OPENSSL_EXPORT FIPS_test_failure_cb_t get_FIPS_test_failure_cb(void);
+
+
 // FIPS_mode returns zero unless BoringSSL is built with BORINGSSL_FIPS, in
 // which case it returns one.
 OPENSSL_EXPORT int FIPS_mode(void);

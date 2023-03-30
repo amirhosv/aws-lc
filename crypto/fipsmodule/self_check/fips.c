@@ -17,7 +17,6 @@
 #include "../../internal.h"
 #include "../delocate.h"
 
-
 int FIPS_mode(void) {
 #if defined(BORINGSSL_FIPS) && !defined(OPENSSL_ASAN)
   return 1;

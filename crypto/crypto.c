@@ -154,3 +154,20 @@ int OPENSSL_init_crypto(uint64_t opts, const OPENSSL_INIT_SETTINGS *settings) {
 }
 
 void OPENSSL_cleanup(void) {}
+
+static void default_FIPS_test_failure_cb(void* arg, int arg_type) {
+    for (;;) {
+        abort();
+        exit(1);
+    }
+}
+
+static FIPS_test_failure_cb_t fips_test_failure_cb = &default_FIPS_test_failure_cb;
+
+void set_FIPS_test_failure_cb(FIPS_test_failure_cb_t cb) {
+    fips_test_failure_cb = cb;
+}
+
+FIPS_test_failure_cb_t get_FIPS_test_failure_cb(void) {
+    return fips_test_failure_cb;
+}

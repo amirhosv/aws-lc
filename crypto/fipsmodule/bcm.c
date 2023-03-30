@@ -175,7 +175,7 @@ static void assert_within(const void *start, const void *symbol,
       stderr,
       "FIPS module doesn't span expected symbol. Expected %p <= %p < %p\n",
       start, symbol, end);
-  BORINGSSL_FIPS_abort();
+  get_FIPS_test_failure_cb()(0, 0);
 }
 
 static void assert_not_within(const void *start, const void *symbol,
@@ -192,7 +192,7 @@ static void assert_not_within(const void *start, const void *symbol,
       stderr,
       "FIPS module spans unexpected symbol, expected %p < %p || %p > %p\n",
       symbol, start, symbol, end);
-  BORINGSSL_FIPS_abort();
+  get_FIPS_test_failure_cb()(0, 0);
 }
 
 #if defined(OPENSSL_ANDROID) && defined(OPENSSL_AARCH64)
@@ -250,7 +250,7 @@ static void BORINGSSL_bcm_power_on_self_test(void) {
   return;
 
 err:
-  BORINGSSL_FIPS_abort();
+  get_FIPS_test_failure_cb()(0, 0);
 }
 
 #if !defined(OPENSSL_ASAN)
@@ -349,13 +349,6 @@ int BORINGSSL_integrity_test(void) {
   return 1;
 }
 #endif  // OPENSSL_ASAN
-
-void BORINGSSL_FIPS_abort(void) {
-  for (;;) {
-    abort();
-    exit(1);
-  }
-}
 
 #endif  // BORINGSSL_FIPS
 
